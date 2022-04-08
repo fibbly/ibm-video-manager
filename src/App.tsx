@@ -3,21 +3,21 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Layout from "./layout/Layout";
 import AuthPage from "./pages/Auth";
-import Dashboard from "./pages/Dashboard";
+import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 
 function App() {
-	const accessToken = localStorage.getItem("accessToken");
+    const accessToken = localStorage.getItem("accessToken");
 
-	return (
-		<Layout>
-			<Routes>
-				<Route path="/" element={<Dashboard />} />
-				<Route path="/auth" element={<AuthPage />} />
-				<Route path="*" element={<NotFound />} />
-			</Routes>
-		</Layout>
-	);
+    return (
+        <Layout>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/auth" element={<AuthPage />} />
+                <Route path="*" element={<NotFound />} />
+            </Routes>
+        </Layout>
+    );
 }
 
 export default App;

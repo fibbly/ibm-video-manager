@@ -1,0 +1,7 @@
+import { useAuth } from "../context/AuthContext";
+
+const Dashboard: React.FC = () => {
+    return <h1>Dashboard</h1>;
+};
+
+export default Dashboard;
