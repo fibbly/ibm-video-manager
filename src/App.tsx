@@ -1,22 +1,27 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Layout from "./layout/Layout";
-import AuthPage from "./pages/Auth";
+import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
+import { useEffect } from "react";
+import { app } from "./constants";
 
 function App() {
-    const accessToken = localStorage.getItem("accessToken");
+    useEffect(() => {
+        if (!app.currentUser?.isLoggedIn) {
+            const credentials = Realm.Credentials.anonymous();
+            try {
+                app.logIn(credentials).then((user) => console.log(user));
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }, []);
 
     return (
-        <Layout>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/auth" element={<AuthPage />} />
-                <Route path="*" element={<NotFound />} />
-            </Routes>
-        </Layout>
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="*" element={<NotFound />} />
+        </Routes>
     );
 }
 

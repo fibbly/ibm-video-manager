@@ -1,16 +1,10 @@
 import { useRef } from "react";
 
 interface AuthFormProps {
-    onSubmit: () => void;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    onError: (errorMessage: string) => void;
+    onSubmit: (clientId: string, clientSecret: string) => Promise<void>;
 }
 
-const AuthForm = ({
-    onSubmit,
-    onChange,
-    onError,
-}: AuthFormProps): JSX.Element => {
+const AuthForm = ({ onSubmit }: AuthFormProps): JSX.Element => {
     const clientIdRef = useRef<HTMLInputElement>(null);
     const clientSecretRef = useRef<HTMLInputElement>(null);
 
@@ -21,9 +15,7 @@ const AuthForm = ({
         const clientSecret = clientSecretRef.current?.value || null;
 
         if (clientId && clientSecret) {
-            onSubmit();
-        } else {
-            onError("Please enter a valid client id and secret.");
+            onSubmit(clientId, clientSecret);
         }
     };
 
@@ -34,12 +26,11 @@ const AuthForm = ({
                     type="text"
                     ref={clientIdRef}
                     placeholder="Client ID"
-                    onChange={onChange}
                     required
                     className="bg-slate-200 p-2 rounded"
                 />
                 <input
-                    type="text"
+                    type="password"
                     ref={clientSecretRef}
                     placeholder="Client Secret"
                     required
